@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:06:34 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/18 20:48:08 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:06:24 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 int	ft_printf_s(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_printf_c(str[i++]);
-	}
-	return (i);
+	if (!str)
+		return (write(1, "(null)", 6));
+	else
+		return (write(1, str, ft_strlen(str)));
 }
-

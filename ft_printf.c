@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/19 22:58:30 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:09:56 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	pick_mode(char mode, void *arg)
 		cnt += ft_printf_pos(*(int *) arg, "0123456789ABCDEF");
 	else if (mode == 'x')
 		cnt += ft_printf_pos(*(int *) arg, "0123456789abcdef");
+	else if (mode == 'u')
+		cnt += ft_printf_pos(*(int *) arg, "0123456789");
 	else
 	{
 		printf("Not yet");

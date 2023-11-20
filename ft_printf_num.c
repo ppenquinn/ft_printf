@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 06:33:30 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/20 07:04:25 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:49:35 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_printf_nbr(int nbr)
 	int		i;
 
 	i = 0;
-	if (nbr > 0 && nbr < -10)
+	if (nbr < 0 && nbr > -10)
 		write(1, "-", 1);
 	if (nbr >= 10 || nbr <= -10)
 	{
@@ -51,10 +51,4 @@ int	ft_printf_nbr(int nbr)
 	write(1, &ans, 1);
 	i++;
 	return (i);
-}
-
-int	main (void)
-{
-	ft_printf_nbr(123);
-	ft_printf_pos(123,"0123456789abcdef");
 }
