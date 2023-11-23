@@ -6,29 +6,29 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/20 13:09:56 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:47:18 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	pick_mode(char mode, void *arg)
+static int	pick_mode(char mode, va_list arg)
 {
 	int	cnt;
 
 	cnt = 0;
 	if (mode == 'c')
-		cnt = ft_printf_c(*(int *) arg);
+		cnt = ft_printf_c(va_arg(arg, int));
 	else if (mode == 's')
-		cnt = ft_printf_s((char *) arg);
+		cnt = ft_printf_s(va_arg(arg, char *));
 	else if (mode == 'd' || mode == 'i')
-		cnt += ft_printf_nbr(*(int *) arg);
+		cnt += ft_printf_nbr(va_arg(arg, int));
 	else if (mode == 'X')
-		cnt += ft_printf_pos(*(int *) arg, "0123456789ABCDEF");
+		cnt += ft_printf_pos(va_arg(arg, unsigned int));
 	else if (mode == 'x')
-		cnt += ft_printf_pos(*(int *) arg, "0123456789abcdef");
+		cnt += ft_printf_pos(va_arg(arg, unsigned int));
 	else if (mode == 'u')
-		cnt += ft_printf_pos(*(int *) arg, "0123456789");
+		cnt += ft_printf_pos(va_arg(arg, unsigned int));
 	else
 	{
 		printf("Not yet");
@@ -49,7 +49,7 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] == '%')
-			cnt += pick_mode(str[++i], va_arg(arg, void *));
+			cnt += pick_mode(str[++i], arg);
 		else
 		{
 			ft_printf_c(str[i]);
