@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/23 14:47:18 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:33:44 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,15 @@ static int	pick_mode(char mode, va_list arg)
 	else if (mode == 's')
 		cnt = ft_printf_s(va_arg(arg, char *));
 	else if (mode == 'd' || mode == 'i')
-		cnt += ft_printf_nbr(va_arg(arg, int));
+		cnt += ft_printf_d(va_arg(arg, int));
 	else if (mode == 'X')
-		cnt += ft_printf_pos(va_arg(arg, unsigned int));
+		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789ABCDEF");
 	else if (mode == 'x')
-		cnt += ft_printf_pos(va_arg(arg, unsigned int));
+		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789abcdef");
 	else if (mode == 'u')
-		cnt += ft_printf_pos(va_arg(arg, unsigned int));
-	else
-	{
-		printf("Not yet");
-	}
-	// cnt = ft_printf_s(va_arg(arg, char *));
+		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789");
+	else if (mode == '%')
+		cnt += ft_printf_c('%');
 	return (cnt);
 }
 
@@ -58,7 +55,5 @@ int	ft_printf(const char *str, ...)
 		i++;
 	}
 	va_end(arg);
-
 	return (cnt);
 }
-
