@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 06:33:30 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/23 16:27:15 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:40:02 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,10 @@ int	ft_printf_d(int nbr)
 	}
 	ft_printf_nbr(nbr);
 	return (length);
+}
+
+int	ft_printf_p(unsigned int nbr, char *base)
+{
+	write(1, "0x", 2);
+	return (2 + ft_printf_u(nbr, base));
 }

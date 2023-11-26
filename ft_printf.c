@@ -6,29 +6,31 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/23 16:33:44 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:07:47 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	pick_mode(char mode, va_list arg)
+static int	pick_mode(char mode, va_list *arg)
 {
 	int	cnt;
 
 	cnt = 0;
 	if (mode == 'c')
-		cnt = ft_printf_c(va_arg(arg, int));
+		cnt = ft_printf_c(va_arg(*arg, int));
 	else if (mode == 's')
-		cnt = ft_printf_s(va_arg(arg, char *));
+		cnt = ft_printf_s(va_arg(*arg, char *));
 	else if (mode == 'd' || mode == 'i')
-		cnt += ft_printf_d(va_arg(arg, int));
+		cnt += ft_printf_d(va_arg(*arg, int));
 	else if (mode == 'X')
-		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789ABCDEF");
+		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789ABCDEF");
 	else if (mode == 'x')
-		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789abcdef");
+		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789abcdef");
 	else if (mode == 'u')
-		cnt += ft_printf_u(va_arg(arg, unsigned int), "0123456789");
+		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789");
+	else if (mode == 'p')
+		cnt += ft_printf_p(va_arg(*arg, unsigned int), "0123456789abcdef");
 	else if (mode == '%')
 		cnt += ft_printf_c('%');
 	return (cnt);
@@ -46,7 +48,7 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] == '%')
-			cnt += pick_mode(str[++i], arg);
+			cnt += pick_mode(str[++i], &arg);
 		else
 		{
 			ft_printf_c(str[i]);
