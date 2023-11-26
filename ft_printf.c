@@ -6,7 +6,7 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/26 17:07:47 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:21:41 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	pick_mode(char mode, va_list *arg)
 	else if (mode == 'u')
 		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789");
 	else if (mode == 'p')
-		cnt += ft_printf_p(va_arg(*arg, unsigned int), "0123456789abcdef");
+		cnt += ft_printf_p(va_arg(*arg, unsigned long), "0123456789abcdef");
 	else if (mode == '%')
 		cnt += ft_printf_c('%');
 	return (cnt);
