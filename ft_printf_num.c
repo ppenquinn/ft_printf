@@ -6,41 +6,48 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 06:33:30 by nappalav          #+#    #+#             */
-/*   Updated: 2023/11/26 17:16:08 by nappalav         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:58:07 by nappalav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_printf_pos(unsigned int nbr, char *base, unsigned int div)
+static int	ft_printf_pos(unsigned int nbr, char *base, unsigned int div)
 {
 	char			ans;
 
 	if (nbr >= div)
 	{
-		ft_printf_pos(nbr / div, base, div);
+		if (ft_printf_pos(nbr / div, base, div) == -1)
+			return (-1);
 		nbr %= div;
 	}
 	ans = base[nbr];
-	write(1, &ans, 1);
+	if (write(1, &ans, 1) == -1)
+		return (-1);
+	return (0);
 }
 
-static void	ft_printf_nbr(int nbr)
+static int	ft_printf_nbr(int nbr)
 {
 	char	ans;
 
 	if (nbr < 0 && nbr > -10)
-		write(1, "-", 1);
+		if (write(1, "-", 1) == -1)
+			return (-1);
 	if (nbr >= 10 || nbr <= -10)
 	{
-		ft_printf_nbr(nbr / 10);
+		if (ft_printf_nbr(nbr / 10) == -1)
+			return (-1);
 		nbr %= 10;
 	}
 	if (nbr >= 0)
 		ans = '0' + nbr;
 	else
 		ans = '0' - nbr;
-	write(1, &ans, 1);
+	if (write(1, &ans, 1) == -1)
+		return (-1);
+	return (0);
 }
 
 int	ft_printf_u(unsigned int nbr, char *base)
@@ -59,7 +66,8 @@ int	ft_printf_u(unsigned int nbr, char *base)
 		temp /= div;
 		length++;
 	}
-	ft_printf_pos(nbr, base, div);
+	if (ft_printf_pos(nbr, base, div) == -1)
+		return (-1);
 	return (length);
 }
 
@@ -83,8 +91,7 @@ int	ft_printf_d(int nbr)
 		temp /= 10;
 		length++;
 	}
-	ft_printf_nbr(nbr);
+	if (ft_printf_nbr(nbr) == -1)
+		return (-1);
 	return (length);
 }
-
-

@@ -6,7 +6,11 @@
 /*   By: nappalav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 21:23:35 by nappalav          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/29 22:12:04 by nappalav         ###   ########.fr       */
+=======
+/*   Updated: 2023/11/26 23:48:03 by nappalav         ###   ########.fr       */
+>>>>>>> 69a4f76ad39c8782748ed99ea0c698120603b5bc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +26,19 @@ static int	pick_mode(char mode, va_list *arg)
 	else if (mode == 's')
 		cnt = ft_printf_s(va_arg(*arg, char *));
 	else if (mode == 'd' || mode == 'i')
-		cnt += ft_printf_d(va_arg(*arg, int));
+		cnt = ft_printf_d(va_arg(*arg, int));
 	else if (mode == 'X')
-		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789ABCDEF");
+		cnt = ft_printf_u(va_arg(*arg, unsigned int), "0123456789ABCDEF");
 	else if (mode == 'x')
-		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789abcdef");
+		cnt = ft_printf_u(va_arg(*arg, unsigned int), "0123456789abcdef");
 	else if (mode == 'u')
-		cnt += ft_printf_u(va_arg(*arg, unsigned int), "0123456789");
+		cnt = ft_printf_u(va_arg(*arg, unsigned int), "0123456789");
 	else if (mode == 'p')
-		cnt += ft_printf_p(va_arg(*arg, unsigned long), "0123456789abcdef");
+		cnt = ft_printf_p(va_arg(*arg, unsigned long), "0123456789abcdef");
 	else if (mode == '%')
-		cnt += ft_printf_c('%');
+		cnt = ft_printf_c('%');
+	else
+		cnt = ft_printf_c(mode);
 	return (cnt);
 }
 
@@ -41,6 +47,7 @@ int	ft_printf(const char *str, ...)
 	va_list	arg;
 	int		i;
 	int		cnt;
+	int		temp;
 
 	i = 0;
 	cnt = 0;
@@ -48,12 +55,12 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] == '%')
-			cnt += pick_mode(str[++i], &arg);
+			temp = pick_mode(str[++i], &arg);
 		else
-		{
-			ft_printf_c(str[i]);
-			cnt++;
-		}
+			temp = ft_printf_c(str[i]);
+		if (temp == -1)
+			return (-1);
+		cnt += temp;
 		i++;
 	}
 	va_end(arg);
